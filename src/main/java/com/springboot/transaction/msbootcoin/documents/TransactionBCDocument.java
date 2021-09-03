@@ -21,6 +21,8 @@ public class TransactionBCDocument {
     @Id
     private String id;
 
+    private String state;
+
     private Double amountExchangeBC;
 
     private Double amountExchangePen;

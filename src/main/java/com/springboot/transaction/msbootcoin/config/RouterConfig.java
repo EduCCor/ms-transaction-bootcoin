@@ -15,6 +15,7 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routes(TransactionBCHandler transactionHandler){
         return route(GET("/api/transaction-bc"), transactionHandler::findAll).
+                andRoute(PUT("/api/transaction-bc/{id}"), transactionHandler::aceptRequestTransacionBC).
                 andRoute(POST("/api/transaction-bc"), transactionHandler::createTransactionBC);
     }
 }

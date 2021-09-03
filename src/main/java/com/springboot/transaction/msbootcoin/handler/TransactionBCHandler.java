@@ -37,4 +37,17 @@ public class TransactionBCHandler {
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
+    public Mono<ServerResponse> aceptRequestTransacionBC(ServerRequest request){
+        Mono<TransactionBCDocument> transactionBCDocumentMono = request.bodyToMono(TransactionBCDocument.class);
+        String id = request.pathVariable("id");
+
+        return transactionBCDocumentMono.flatMap(tbc -> transactionBCService.aceptRequest(id, tbc))
+                .flatMap( c -> ServerResponse
+                        .ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromValue(c)))
+                .switchIfEmpty(ServerResponse.badRequest().build());
+
+    }
+
 }
